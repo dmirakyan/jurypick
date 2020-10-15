@@ -4,4 +4,5 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse('Test page')
+    # return HttpResponse('Test page')
+    return render(request,'jurorsearch/index.html')
