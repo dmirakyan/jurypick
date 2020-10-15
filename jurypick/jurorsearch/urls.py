@@ -4,5 +4,10 @@ from jurorsearch import views
 app_name = 'jurorsearch'
 
 urlpatterns = [
+    path('index.html', views.index, name='index'),
     path('', views.index, name='index'),
+    path('jurorsearch/index.html', views.index, name='index'),
+    path('generate_query/', views.index, name='generate_query'),
+
+    # path('generate_query/',views.generate_query,name='generate_query')
 ]

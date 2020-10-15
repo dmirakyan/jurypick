@@ -43,12 +43,26 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h1 class="mt-5">Put stuf here later</h1>
-        <p class="lead">description of the stuff</p>
-        <ul class="list-unstyled">
+        <h1 class="mt-5">JurorSearch</h1>
+        <p class="lead">search for people</p>
+        <div>
+          <form id="query_form" method="post" action="/jurorsearch/index.html">
+              {% csrf_token %}
+              {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+              {% endfor %}
+              {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+              {% endfor %}
+              <input type="submit" name="submit" value="Search"/>
+          </form>
+        </div>
+        <!-- <ul class="list-unstyled">
           <li>Bootstrap 4.5.0</li>
           <li>jQuery 3.5.1</li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </div>
