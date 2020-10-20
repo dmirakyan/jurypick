@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Bare - Start Bootstrap Template</title>
+  <title>JuryPick</title>
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
 
@@ -17,7 +17,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <a class="navbar-brand" href="#">Find people</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -46,18 +46,7 @@
         <h1 class="mt-5">JurorSearch</h1>
         <p class="lead">search for people</p>
         <div>
-          <form id="query_form" method="post" action="/jurorsearch/index.html">
-              {% csrf_token %}
-              {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-              {% endfor %}
-              {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-              {% endfor %}
-              <input type="submit" name="submit" value="Search"/>
-          </form>
+          {% include "jurorsearch/search-form.html" %}
         </div>
         <!-- <ul class="list-unstyled">
           <li>Bootstrap 4.5.0</li>

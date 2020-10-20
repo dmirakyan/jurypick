@@ -1,0 +1,33 @@
+
+{% load crispy_forms_tags %}
+
+<form id="query_form" method="post" action="/jurorsearch/index.html">
+    {% csrf_token %}
+    <!-- <table>{{ form|crispy }}</table> -->
+    <div class="form-row">
+        <div class="form-group col-md-4 mb-0">
+          {{ form.first_name|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-4 mb-0">
+          {{ form.middle_name|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-4 mb-0">
+            {{ form.last_name|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-5 mb-0">
+            {{ form.address|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-3 mb-0">
+          {{ form.city|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-2 mb-0">
+          {{ form.state|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-2 mb-0">
+          {{ form.zip_code|as_crispy_field }}
+        </div>
+      </div>
+    <input type="submit" name="submit" value="Search"/>
+</form>
