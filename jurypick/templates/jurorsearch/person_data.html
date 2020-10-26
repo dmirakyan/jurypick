@@ -10,7 +10,7 @@
 </div> -->
 
 <div class="media">
-  <img class="img-thumbnail mr-3" src="https://graph.facebook.com/v8.0/1523694271/picture?redirect=true&access_token=643286449673767|3BW8OSQfjmlb6EP1fy055lVZ9pE">
+  <img class="img-thumbnail mr-3" src="{{ person.fb_profile }}">
   <div class ="media-body">
     <!-- <h6 class="mt-0 text-left">Dmitri Mirakyan - 26 </h5> -->
     <h6 class="mt-0 text-left">
@@ -24,30 +24,84 @@
     <p class="text-left font-weight-light text-uppercase mb-0 mt-3"><small>work</small></p>
     <hr class="mt-0 mb-2"/>
     <p class="mt-1 mb-1 text-left">
-    <b>Job:</b> job_title at <a href="opendoor.com"> job_company_name </a>
+    {% if person.job_any == 1 %}
+      <b>Job:</b>
+      {% if person.job_title %}
+        {{ person.job_title }}
+      {% endif %}
+      {% if person.job_company_name %}
+        at {{ person.job_company_name }}
+      {% endif %}
+    {% endif %}
+    <!-- <b>Job:</b> job_title at <a href="opendoor.com"> job_company_name </a> -->
     </p>
+
+    {% if person.industry %}
     <p class="mt-1 mb-1 text-left">
-      <b>Industry:</b> industy
+      <b>Industry:</b> {{ person.industry }}
     </p>
+    {% endif %}
+  
   </div>
 </div>
 <div class="row>">
     <p class="text-left font-weight-light text-uppercase mb-0 mt-4"><small>education</small></p>
     <hr class="mt-0 mb-2"/>
-    <p class="mt-1 mb-1 text-left">degrees - majors</p>
-    <p class="mt-1 mb-1 text-left">GPA: 1.0</p>
+    <!-- <p class="mt-1 mb-1 text-left">degrees - majors</p>
+    <p class="mt-1 mb-1 text-left">GPA: 1.0</p> -->
 
     <div class="row mt-3">
+      {% if person.school_name_1 %}
       <div class="col">
-        <p class="mt-1 mb-1 text-left"> UT Austin </p>
-        <p class="mt-1 mb-1 text-left"> 2013-2017 </p>
+        {% if person.school_name_1 %}
+          <p class="mt-1 mb-1 text-left">{{ person.school_name_1 }}</a></p>
+        {% endif %}
+        {% if person.school_start1 %}
+          <p class="mt-1 mb-1 text-left"> {{ person.school_start1 }} - {{ person.school_stop1 }}</p>
+        {% endif %}
+        {% if person.school_degree1 %}
+        <p class="mt-1 mb-1 text-left"> {{ person.school_degree1 }}, {{ person.school_major1 }}</p>
+        {% endif %}
+        {% if person.school_gpa_1 %}
+        <p class="mt-1 mb-1 text-left"> GPA: {{ person.school_gpa_1}}</p>
+        {% endif %}
       </div>
+      {% endif %}
+
+      {% if person.school_name_2 %}
       <div class="col">
-        <p class="mt-1 mb-1 text-left"> Cinco Ranch </p>
+        {% if person.school_name_2 %}
+          <p class="mt-1 mb-1 text-left">{{ person.school_name_2 }}</a></p>
+        {% endif %}
+        {% if person.school_start2 %}
+          <p class="mt-1 mb-1 text-left"> {{ person.school_start2 }} - {{ person.school_stop2 }}</p>
+        {% endif %}
+        {% if person.school_degree2 %}
+        <p class="mt-1 mb-1 text-left"> {{ person.school_degree2 }}, {{ person.school_major2 }}</p>
+        {% endif %}
+        {% if person.school_gpa_2 %}
+        <p class="mt-1 mb-1 text-left"> GPA: {{ person.school_gpa_2}}</p>
+        {% endif %}
       </div>
+      {% endif %}
+
+      {% if person.school_name_3 %}
       <div class="col">
-        <!-- <p class="mt-1 mb-1 text-left"> Cinco Ranch </p> -->
+        {% if person.school_name_3 %}
+          <p class="mt-1 mb-1 text-left">{{ person.school_name_3 }}</a></p>
+        {% endif %}
+        {% if person.school_start3 %}
+          <p class="mt-1 mb-1 text-left"> {{ person.school_start3 }} - {{ person.school_stop3 }}</p>
+        {% endif %}
+        {% if person.school_degree3 %}
+        <p class="mt-1 mb-1 text-left"> {{ person.school_degree3 }}, {{ person.school_major3 }}</p>
+        {% endif %}
+        {% if person.school_gpa_3 %}
+        <p class="mt-1 mb-1 text-left"> GPA: {{ person.school_gpa_3 }}</p>
+        {% endif %}
       </div>
+      {% endif %}
+
     </div>
 
     
@@ -66,7 +120,7 @@
     </div>
 
 
-    <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>pased json</small></p>
+    <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>parsed json</small></p>
     <hr class="mt-0 mb-2"/>
       <div class="text-left">
         <p class="text-left font-weight-light"><small>
