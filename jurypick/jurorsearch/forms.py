@@ -31,8 +31,9 @@ class QueryForm(forms.ModelForm):
     state = forms.ChoiceField(
         required=False, 
         choices=(('', 'state'),)+STATE_CHOICES)
-    zip_code = USZipCodeField()
-
+    zip_code = USZipCodeField(
+        required=False,
+    )
     class Meta:
         model = Query
         exclude = ('search_id',)

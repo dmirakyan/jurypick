@@ -1,0 +1,114 @@
+<!-- 
+
+<div class="row">
+  <div class="col-md-4">
+      <img class="img-thumbnail" src="https://graph.facebook.com/v8.0/1523694271/picture?redirect=true&access_token=643286449673767|3BW8OSQfjmlb6EP1fy055lVZ9pE">
+  </div>
+  <div class="col-md-8">
+    <h4 class="mt-0 text-left">Dmitri Mirakyan - 26 </h4>
+  </div>
+</div> -->
+
+<div class="media">
+  <img class="img-thumbnail mr-3" src="https://graph.facebook.com/v8.0/1523694271/picture?redirect=true&access_token=643286449673767|3BW8OSQfjmlb6EP1fy055lVZ9pE">
+  <div class ="media-body">
+    <!-- <h6 class="mt-0 text-left">Dmitri Mirakyan - 26 </h5> -->
+    <h6 class="mt-0 text-left">
+      {{person.person_full_name}}  
+      {% if person.age %}
+        - {{ person.age}}
+      {% endif %}
+    </h5> 
+
+
+    <p class="text-left font-weight-light text-uppercase mb-0 mt-3"><small>work</small></p>
+    <hr class="mt-0 mb-2"/>
+    <p class="mt-1 mb-1 text-left">
+    <b>Job:</b> job_title at <a href="opendoor.com"> job_company_name </a>
+    </p>
+    <p class="mt-1 mb-1 text-left">
+      <b>Industry:</b> industy
+    </p>
+  </div>
+</div>
+<div class="row>">
+    <p class="text-left font-weight-light text-uppercase mb-0 mt-4"><small>education</small></p>
+    <hr class="mt-0 mb-2"/>
+    <p class="mt-1 mb-1 text-left">degrees - majors</p>
+    <p class="mt-1 mb-1 text-left">GPA: 1.0</p>
+
+    <div class="row mt-3">
+      <div class="col">
+        <p class="mt-1 mb-1 text-left"> UT Austin </p>
+        <p class="mt-1 mb-1 text-left"> 2013-2017 </p>
+      </div>
+      <div class="col">
+        <p class="mt-1 mb-1 text-left"> Cinco Ranch </p>
+      </div>
+      <div class="col">
+        <!-- <p class="mt-1 mb-1 text-left"> Cinco Ranch </p> -->
+      </div>
+    </div>
+
+    
+    <p class="text-left  font-weight-light text-uppercase mb-0 mt-2"><small>social media</small></p>
+    <hr class="mt-0 mb-2"/>
+    <div class="text-left">
+      {% if person.facebook_url %}
+        <a class="btn btn-primary" href="https://www.{{ person.facebook_url }}" role="button"><i class="fab fa-facebook-f"></i></a>
+      {% endif %}
+      {% if person.linkedin_url %}
+      <a class="btn btn-primary" href="https://www.{{ person.linkedin_url }}" role="button"><i class="fab fa-linkedin-in"></i></a>
+      {% endif %}
+      {% if person.twitter_url %}
+      <a class="btn btn-primary" href="https://www.{{ person.twitter_url }}" role="button"><i class="fab fa-twitter"></i></a>
+      {% endif %}
+    </div>
+
+
+    <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>pased json</small></p>
+    <hr class="mt-0 mb-2"/>
+      <div class="text-left">
+        <p class="text-left font-weight-light"><small>
+          {{ json_parsed }}
+        </small></p>
+      </div>
+    
+    <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>raw json</small></p>
+      <hr class="mt-0 mb-2"/>
+      <div class="text-left">
+        <p class="text-left font-weight-light"><small>
+          {{ json_raw }}
+        </small></p>
+      </div>
+  </div>
+
+
+
+
+  
+</div>
+
+
+<!-- id - string
+full name - string
+birth year - string (convert this to age)
+location_name - string -->
+
+<!-- social media profiles -->
+<!-- linkedin_ulr - string
+facebook_url - string
+twitter_url - string
+ 
+profiles : array of profiles -->
+
+<!-- work -->
+<!-- -job_title
+-industry
+-job_company_name
+-job_company_website -->
+
+<!-- education -->
+<!-- - education.school.name 
+- education.school.website
+- education.degrees -->
