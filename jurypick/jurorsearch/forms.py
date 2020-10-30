@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
 from localflavor.us.forms import USZipCodeField
-from jurorsearch.models import Query, Profile
+from jurorsearch.models import Query, Human
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 
