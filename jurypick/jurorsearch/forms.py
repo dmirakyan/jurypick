@@ -23,6 +23,7 @@ class QueryForm(forms.ModelForm):
         required=False)
     address = forms.CharField(
         max_length=128,
+        label='Address or County',
         widget=forms.TextInput(attrs={'placeholder': '1234 Main St'}),
         required=False)
     city = forms.CharField(
@@ -34,6 +35,15 @@ class QueryForm(forms.ModelForm):
     zip_code = USZipCodeField(
         required=False,
     )
+    email = forms.CharField(
+        max_length=128, 
+        required=False)
+    phone = forms.CharField(
+        max_length=128, 
+        required=False)
+    birth_date = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': '05/25/1970'}),
+        required=False)
     class Meta:
         model = Query
         exclude = ('search_id',)

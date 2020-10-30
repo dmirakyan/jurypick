@@ -13,6 +13,9 @@ def call_api(form):
     city = form.cleaned_data['city']
     state = form.cleaned_data['state']
     postal_code = form.cleaned_data['zip_code']
+    phone = form.cleaned_data['phone']
+    email = form.cleaned_data['email']
+    birth_date = form.cleaned_data['birth_date']
     test_params = {
         "api_key": key,
         "country":["United States"],
@@ -22,7 +25,10 @@ def call_api(form):
         "strees_address": [address],
         "locality": [city],
         "region":[state],
-        "postal_code":[postal_code]
+        "postal_code":[postal_code],
+        "phone": [phone],
+        "email":[email],
+        "birth_date":[birth_date],
     }
 
     json_response = requests.get(rq_url,  params=test_params).json()
@@ -63,8 +69,8 @@ def parse_person(json_response):
         "twitter_url": person_details['twitter_url'],
         
         # Work details
-        "job_title": person_details['job_title'].title(),
-        "job_company_name": person_details['job_company_name'].title(),
+        "job_title": person_details['job_title'],
+        "job_company_name": person_details['job_company_name'],
         "job_company_url": person_details['job_company_website'],
         "industry": person_details['industry'],
                

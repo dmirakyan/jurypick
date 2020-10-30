@@ -9,7 +9,7 @@ class Query(models.Model):
     address = models.CharField(max_length=128)
     city = models.CharField(max_length=128)
     state = models.CharField(max_length=128)
-    zip_code = models.IntegerField()
+    zip_code = models.CharField(max_length=128)
     email = models.CharField(max_length=128)
     phone = models.CharField(max_length=128)
     birth_date = models.CharField(max_length=128)
