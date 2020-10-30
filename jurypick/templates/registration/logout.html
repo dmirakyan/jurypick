@@ -1,17 +1,11 @@
 {% extends 'jurorsearch/base.html' %}
-
 {% block body_block %}
 <div class="container">
         <div class="col-lg-12 text-center">
             <div class="container-fluid">
             <div class ="card card-body mt-5">
             <h1 class="mt-5" style="padding-bottom:2em">Login</h1>
-                    <form method="post" action=".">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input type="submit" class="btn btn-primary" value="Log In" />
-                        <input type="hidden" name="next"  value="{{ next }}" />
-                    </form>
+            <p>You have successfully logged out</p>
             </div>
             </div>
         </div>

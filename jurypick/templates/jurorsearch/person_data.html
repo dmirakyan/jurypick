@@ -19,8 +19,6 @@
         - {{ person.age}}
       {% endif %}
     </h5> 
-
-
     <p class="text-left font-weight-light text-uppercase mb-0 mt-3"><small>work</small></p>
     <hr class="mt-0 mb-2"/>
     <p class="mt-1 mb-1 text-left">
@@ -119,22 +117,22 @@
       {% endif %}
     </div>
 
-
-    <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>parsed json</small></p>
-    <hr class="mt-0 mb-2"/>
-      <div class="text-left">
-        <p class="text-left font-weight-light"><small>
-          {{ json_parsed }}
-        </small></p>
-      </div>
-    
-    <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>raw json</small></p>
+    {% if user.is_superuser %}
+      <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>parsed data</small></p>
       <hr class="mt-0 mb-2"/>
-      <div class="text-left">
-        <p class="text-left font-weight-light"><small>
-          {{ json_raw }}
-        </small></p>
-      </div>
+        <div class="text-left">
+          <p class="text-left font-weight-light"><small>
+            {{ json_parsed }}
+          </small></p>
+        </div>
+      <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>raw data</small></p>
+        <hr class="mt-0 mb-2"/>
+        <div class="text-left">
+          <p class="text-left font-weight-light"><small>
+            {{ json_raw }}
+          </small></p>
+        </div>
+    {% endif %}
   </div>
 
 
