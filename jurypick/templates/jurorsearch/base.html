@@ -26,9 +26,12 @@
           <li class="nav-item active">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <!-- <li class="nav-item">
+          {% if user.is_authenticated == False %}
+          <li class="nav-item">
             <a class="nav-link" href="/accounts/login/">Login</a>
-          </li> -->
+          </li>
+          {% endif %}
+
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="/accounts/logout/">Logout</a>
