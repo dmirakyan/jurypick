@@ -12,19 +12,19 @@ STATE_CHOICES = (('AL', 'Alabama'), ('AK', 'Alaska'), ('AS', 'American Samoa'), 
 class QueryForm(forms.ModelForm):
     first_name = forms.CharField(
         max_length=128, 
-        widget=forms.TextInput(attrs={'placeholder': 'John'}),
+        widget=forms.TextInput(),
         required=False)
     middle_name = forms.CharField(
         max_length=128, 
         required=False)
     last_name = forms.CharField(       
         max_length=128, 
-        widget=forms.TextInput(attrs={'placeholder': 'Smith'}),
+        widget=forms.TextInput(),
         required=False)
     address = forms.CharField(
         max_length=128,
         label='Address or County',
-        widget=forms.TextInput(attrs={'placeholder': '1234 Main St'}),
+        widget=forms.TextInput(),
         required=False)
     city = forms.CharField(
         max_length=128, 
@@ -42,7 +42,7 @@ class QueryForm(forms.ModelForm):
         max_length=128, 
         required=False)
     birth_date = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': '05/25/1970'}),
+        widget=forms.TextInput(),
         required=False)
     class Meta:
         model = Query

@@ -8,7 +8,7 @@ from django.urls import reverse
 
 
 from jurorsearch.forms import QueryForm
-from jurorsearch.enrich import call_api, parse_person
+from jurorsearch.enrich import call_api, parse_person, check_response_status
 import json
 
 
@@ -43,22 +43,3 @@ def index(request):
         return redirect(reverse('auth_login'))
 
 
-# def index(request):
-#     if request.user.is_authenticated():
-#         form = QueryForm
-#         if request.method == 'POST':
-#             form = QueryForm(request.POST)
-#             if form.is_valid():
-#                 # form.save(commit=True)
-#                 # Make the request?
-#                 json_response = call_api(form)
-#                 person_clean = parse_person(json_response)
-#                 json_raw = json.dumps(json_response)
-#                 json_parsed = json.dumps(person_clean)
-#                 # return JsonResponse(person_clean)  
-#                 return render(request,'jurorsearch/index.html',{'form':form, 'person':person_clean, 'json_raw':json_raw,'json_parsed':json_parsed})
-#             else:
-#                 print(form.errors)
-#         return render(request,'jurorsearch/index.html',{'form':form})
-#     else:
-#         return HttpResponse('A')

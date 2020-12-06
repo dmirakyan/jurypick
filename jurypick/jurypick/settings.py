@@ -28,7 +28,9 @@ SECRET_KEY = '9(u*eca(&(41!bw6vti*21(5#q815dy#gvpjfvby+s&m71y+zt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.juryfind.com']
+ALLOWED_HOSTS = ['www.juryfind.com',
+                '127.0.0.1'
+                ]
 
 REGISTRATION_AUTO_LOGIN = True
 # The URL that Django redirects users to after logging in.
