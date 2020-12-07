@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Query(models.Model):
@@ -13,11 +14,22 @@ class Query(models.Model):
     email = models.CharField(max_length=128, null=True)
     phone = models.CharField(max_length=128, null=True)
     birth_date = models.CharField(max_length=128, null=True)
+
+    # username = models.CharField(max_length=128, null=True)
+
+    created_at = models.DateTimeField(null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
     def __str__(self):  
         return self.first_name + self.last_name
 
 class Human(models.Model):
     search_id = models.OneToOneField(Query, on_delete=models.CASCADE)
-    result = models.CharField(max_length=128)
+    # username = models.CharField(max_length=128, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    result = models.CharField(max_length=10000,null=True)
+    result_clean = models.CharField(max_length=10000,null=True)
+    hidden = models.BooleanField(default=False)
+    created_at = models.DateTimeField(null=True)
     def __str__(self):  
-        return self.search_id
+        return self.search_id.first_name
