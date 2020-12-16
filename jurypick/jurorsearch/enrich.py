@@ -84,6 +84,7 @@ def parse_person(json_response):
             "job_company_name": person_details['job_company_name'],
             "job_company_url": person_details['job_company_website'],
             "industry": person_details['industry'],
+                
         }
 
         if facebook_id:
