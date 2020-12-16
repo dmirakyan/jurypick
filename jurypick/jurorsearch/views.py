@@ -3,12 +3,15 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.utils import timezone
 
 # import requests
 
 
 from jurorsearch.forms import QueryForm
 from jurorsearch.enrich import call_api, parse_person, check_response_status
+from jurorsearch.models import Query, Human
+
 import json
 
 
@@ -27,12 +30,18 @@ def index(request):
         if request.method == 'POST':
             form = QueryForm(request.POST)
             if form.is_valid():
-                # form.save(commit=True)
+                query = form.save(commit=False)
+                query.author = request.user
+                query.created_at = timezone.now()
+                query.save()
+
                 # Make the request?
                 json_response = call_api(form)
                 person_clean = parse_person(json_response)
                 json_raw = json.dumps(json_response)
                 json_parsed = json.dumps(person_clean)
+                human = Human.objects.create(search_id = query, author=request.user, result=json_raw, result_clean=json_parsed, hidden=False,created_at=timezone.now())
+                human.save()
                 # return JsonResponse(person_clean)  
                 return render(request,'jurorsearch/index.html',{'form':form, 'person':person_clean, 'json_raw':json_raw,'json_parsed':json_parsed})
             else:
