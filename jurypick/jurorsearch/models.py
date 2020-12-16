@@ -29,6 +29,8 @@ class Human(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     result = models.CharField(max_length=10000,null=True)
     result_clean = models.CharField(max_length=10000,null=True)
+    result_clean_json = models.JSONField(null=True)
+    response_status = models.CharField(max_length=10000,null=True)
     hidden = models.BooleanField(default=False)
     created_at = models.DateTimeField(null=True)
     def __str__(self):  

@@ -1,0 +1,22 @@
+{% extends 'jurorsearch/base.html' %}
+{% block body_block %}
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="mt-5" style="padding-bottom:2em">History</h1>
+        <!-- <p class="lead">search for people</p> -->
+        <p> search history shows up here </p>
+        {% if searches %}
+            <ul>
+            {% for search in searches %}
+                <li>{{ search.result_clean_json.person_full_name }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

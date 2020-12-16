@@ -20,7 +20,16 @@ import json
 # def index(request):
 #     # return HttpResponse('Test page')
 #     return render(request,'jurorsearch/index.html')
-
+@login_required
+def history(request):
+    if request.user.is_authenticated:
+        user=request.user
+        searches=Human.objects.filter(author=user.id)
+        # return render(request,"display.html",{'obj_list':search_list})
+        return render(request,'jurorsearch/history.html',{'searches':searches})
+    else:
+        # return render(request,'accounts:login')
+        return redirect(reverse('auth_login'))
 
 
 def index(request):
@@ -40,7 +49,8 @@ def index(request):
                 person_clean = parse_person(json_response)
                 json_raw = json.dumps(json_response)
                 json_parsed = json.dumps(person_clean)
-                human = Human.objects.create(search_id = query, author=request.user, result=json_raw, result_clean=json_parsed, hidden=False,created_at=timezone.now())
+                response_status = check_response_status(json_response)
+                human = Human.objects.create(search_id = query, author=request.user, result=json_raw, result_clean=json_parsed, result_clean_json=person_clean, hidden=False,response_status=response_status,created_at=timezone.now())
                 human.save()
                 # return JsonResponse(person_clean)  
                 return render(request,'jurorsearch/index.html',{'form':form, 'person':person_clean, 'json_raw':json_raw,'json_parsed':json_parsed})
