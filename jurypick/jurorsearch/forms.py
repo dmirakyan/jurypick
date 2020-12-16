@@ -33,7 +33,8 @@ class QueryForm(forms.ModelForm):
         required=False, 
         choices=(('', 'state'),)+STATE_CHOICES)
     zip_code = USZipCodeField(
-        required=False)
+        required=False,
+    )
     email = forms.CharField(
         max_length=128, 
         required=False)
@@ -43,9 +44,8 @@ class QueryForm(forms.ModelForm):
     birth_date = forms.CharField(
         widget=forms.TextInput(),
         required=False)
-
     class Meta:
         model = Query
-        exclude = ('search_id','author','created_at')
+        exclude = ('search_id',)
     
    

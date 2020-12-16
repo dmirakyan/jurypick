@@ -61,9 +61,7 @@ def parse_person(json_response):
         school_count = len(person_details['education'])
         facebook_id = person_details['facebook_id']
         fb_key = "643286449673767|3BW8OSQfjmlb6EP1fy055lVZ9pE"
-        
-        
-        
+
         
         person_clean = {
             "status" : status,
