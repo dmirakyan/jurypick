@@ -10,19 +10,19 @@
             {% for search in searches %}
                 <div class="card mb-3">
                     <div class="card-header">
-                        <div class="row">
-                            <div class="text-left">
+                            <p class="text-left mb-0">
                                 {{ search.result_clean_json.person_full_name }}
                                 {% if search.result_clean_json.age %}
                                 - {{ search.result_clean_json.age}}
                                 {% endif %}
-                            </div>
-                            <div class="text-right">
-                                <button type="button" class="close" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
+                            <!-- <button type="button" class="btn btn-outline-secondary pull-right"> -->
+                            <!-- <div class="button-group" -->
+                            <button type="button" class='btn btn-outline-secondary' aria-labels="close"> 
+                                <span class="btn-label">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                            </button>
+                            </p>
                     </div>
                     <div class="card-body">
                         <div class="row">
