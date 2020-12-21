@@ -3,5 +3,20 @@ from jurorsearch.models import Query, Human
 
 # Register your models here.
 
-admin.site.register(Query)
-admin.site.register(Human)
+
+class QueryAdmin(admin.ModelAdmin):
+    readonly_fields = ['search_id']
+    def display_id(self, obj):
+        return obj.id
+
+class HumanAdmin(admin.ModelAdmin):
+    readonly_fields = ['search_id']
+    def display_id(self, obj):
+        return obj.id
+# class QueryAdmin(admin.ModelAdmin):
+#     readonly_fields = ('search_id',)
+
+
+# admin.site.register(QueryAdmin)
+admin.site.register(Query,QueryAdmin)
+admin.site.register(Human,HumanAdmin)

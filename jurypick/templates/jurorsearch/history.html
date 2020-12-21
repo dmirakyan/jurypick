@@ -8,7 +8,7 @@
         <h1 class="mt-5" style="padding-bottom:2em">History</h1>
         {% if searches %}
             {% for search in searches %}
-                <div class="card mb-3">
+                <div class="card mb-3" id="modal-{{search.search_id}}">
                     <div class="card-header">
                             <p class="text-left mb-0 pb-0" style="text-align: center;">
                                 {{ search.result_clean_json.person_full_name }}
@@ -23,11 +23,9 @@
                                 </span>
                             </button> -->
 
-                            <button type="button" class="btn close pull-right" style="margin-top: .09em;" aria-labels="close">  
+                            <button type="button" class="btn close pull-right" style="margin-top: .09em;" aria-labels="close" onclick="hideModal('modal-' + {{search.search_id}})">  
                                 <span class="btn-label">
                                     <i class="fas fa-times"></i>
-                                    <!-- <i class="far fa-window-close"></i> -->
-                                    <!-- <i class="far fa-times-circle"></i> -->
                                 </span>
                             </button>
 
@@ -156,5 +154,16 @@
       </div>
     </div>
   </div>
-
 {% endblock %}
+
+
+{% block js_block %}
+<script>
+    function hideModal(id) {
+        var modal = document.getElementById(id)
+
+        modal.classList.add("d-none")
+    }
+</script>
+{% endblock %}
+
