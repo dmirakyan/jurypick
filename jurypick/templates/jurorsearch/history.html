@@ -10,18 +10,35 @@
             {% for search in searches %}
                 <div class="card mb-3">
                     <div class="card-header">
-                            <p class="text-left mb-0">
+                            <p class="text-left mb-0 pb-0" style="text-align: center;">
                                 {{ search.result_clean_json.person_full_name }}
                                 {% if search.result_clean_json.age %}
                                 - {{ search.result_clean_json.age}}
                                 {% endif %}
                             <!-- <button type="button" class="btn btn-outline-secondary pull-right"> -->
                             <!-- <div class="button-group" -->
-                            <button type="button" class='btn btn-outline-secondary' aria-labels="close"> 
+                            <!-- <button type="button" class="btn btn-outline-secondary pull-right" aria-labels="close"> 
                                 <span class="btn-label">
                                     <i class="fas fa-times"></i>
                                 </span>
+                            </button> -->
+
+                            <button type="button" class="btn close pull-right" style="margin-top: .09em;" aria-labels="close">  
+                                <span class="btn-label">
+                                    <i class="fas fa-times"></i>
+                                    <!-- <i class="far fa-window-close"></i> -->
+                                    <!-- <i class="far fa-times-circle"></i> -->
+                                </span>
                             </button>
+
+                            <button type="button" class="btn close pull-right mx-3" aria-labels="close">  
+                                <span class="btn-label">
+                                    <i class="far fa-star fa-sm"></i>
+                                </span>
+                            </button>
+
+                            <!-- <i class="far fa-star"></i> -->
+
                             </p>
                     </div>
                     <div class="card-body">
