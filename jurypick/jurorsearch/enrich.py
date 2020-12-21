@@ -50,7 +50,7 @@ def check_if_any(list):
 def parse_person(json_response):
     status = json_response['status']
 
-    if status == 404:
+    if status in [404,400]:
         person_clean = {
             "status" : status,
             "error" : json_response['error'],
@@ -61,13 +61,21 @@ def parse_person(json_response):
         school_count = len(person_details['education'])
         facebook_id = person_details['facebook_id']
         fb_key = "643286449673767|3BW8OSQfjmlb6EP1fy055lVZ9pE"
-        
-        
-        
-        
+
+        # check if any social media details are listed 
+        social_media_counter = 0
+        if person_details['facebook_url']: 
+            social_media_counter += 1 
+        if person_details['linkedin_url']: 
+            social_media_counter += 1 
+        if person_details['twitter_url']: 
+            social_media_counter += 1 
+
         person_clean = {
             "status" : status,
             "record_id": person_details['id'],
+        
+            "social_media_counter": social_media_counter,
             
             # Demographics
             "age": person_details['birth_year'],

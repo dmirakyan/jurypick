@@ -32,6 +32,7 @@ class Human(models.Model):
     result_clean_json = models.JSONField(null=True)
     response_status = models.CharField(max_length=10000,null=True)
     hidden = models.BooleanField(default=False)
+    starred = models.BooleanField(default=False)
     created_at = models.DateTimeField(null=True)
     def __str__(self):  
         return self.search_id.first_name

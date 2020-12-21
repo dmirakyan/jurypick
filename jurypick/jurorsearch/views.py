@@ -24,9 +24,11 @@ import json
 def history(request):
     if request.user.is_authenticated:
         user=request.user
-        searches=Human.objects.filter(author=user.id)
+        searches=Human.objects.filter(author=user.id).filter(response_status=200).order_by('-created_at')
         # return render(request,"display.html",{'obj_list':search_list})
         return render(request,'jurorsearch/history.html',{'searches':searches})
+        return render(request,reverse('auth_login'),{'searches':searches})
+
     else:
         # return render(request,'accounts:login')
         return redirect(reverse('auth_login'))

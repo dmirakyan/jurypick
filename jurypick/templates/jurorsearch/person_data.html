@@ -8,7 +8,7 @@
     <h4 class="mt-0 text-left">Dmitri Mirakyan - 26 </h4>
   </div>
 </div> -->
-{% if person.status == 404 %}
+{% if person.status == 400 %}
 <div class="media">
   <div class ="media-body">
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -18,6 +18,15 @@
 </div>
 {% endif %}
 
+{% if person.status == 404 %}
+<div class="media">
+  <div class ="media-body">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <p class="mt-1 mb-1"><b>Error: </b>{{ person.error.message }}</p>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 {% if person.status == 200 %}
 <div class="media">
@@ -107,6 +116,7 @@
       </div>
       {% endif %}
     </div>
+    {% if person.social_media_counter > 0 %}
     <p class="text-left  font-weight-light text-uppercase mb-0 mt-2"><small>social media</small></p>
     <hr class="mt-0 mb-2"/>
     <div class="text-left">
@@ -120,6 +130,7 @@
       <a class="btn btn-primary" href="https://www.{{ person.twitter_url }}" role="button"><i class="fab fa-twitter"></i></a>
       {% endif %}
     </div>
+    {% endif %}
     {% if user.is_superuser %}
       <p class="text-left  font-weight-light text-uppercase mb-0 mt-5"><small>parsed data</small></p>
       <hr class="mt-0 mb-2"/>
