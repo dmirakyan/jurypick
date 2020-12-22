@@ -54,6 +54,12 @@ INSTALLED_APPS = [
     'localflavor',
     'crispy_forms',
     'registration',
+
+    # 'jurorsearch.apps.JurorsearchConfig',
+
+
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

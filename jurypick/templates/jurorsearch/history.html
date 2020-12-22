@@ -23,15 +23,23 @@
                                 </span>
                             </button> -->
 
-                            <button type="button" class="btn close pull-right" style="margin-top: .09em;" aria-labels="close" onclick="hideModal('modal-' + {{search.search_id}})">  
+                            <button type="button" class="btn close pull-right" style="margin-top: .09em;" aria-labels="close" onclick="hideModal('modal-' + {{search.search_id}}, {{search.search_id}})">  
                                 <span class="btn-label">
                                     <i class="fas fa-times"></i>
                                 </span>
                             </button>
 
-                            <button type="button" class="btn close pull-right mx-3" aria-labels="close">  
+                            <button type="button" class="btn close pull-right mx-3" aria-labels="close" onclick="favoriteModal('favorite-' + {{search.search_id}}, {{search.search_id}})" >  
                                 <span class="btn-label">
-                                    <i class="far fa-star fa-sm"></i>
+                                   
+                                    {% if search.starred == False %}
+                                    <i id="favorite-{{search.search_id}}" class="far fa-star fa-sm" ></i>
+                                    {% endif %}
+
+                                    {% if search.starred == True %}
+                                    <i id="favorite-{{search.search_id}}" class="fas fa-star fa-sm text-primary" ></i>
+                                    {% endif %}
+                                
                                 </span>
                             </button>
 
@@ -159,11 +167,33 @@
 
 {% block js_block %}
 <script>
-    function hideModal(id) {
-        var modal = document.getElementById(id)
 
+    function hideModal(id,pk) {
+        var modal = document.getElementById(id)
         modal.classList.add("d-none")
+
+        var request = new XMLHttpRequest()
+        var url = "/jurorsearch/api/human-hide/" + pk
+        request.open("GET", url, true)
+        request.setRequestHeader("Content-Type", "application/json")
+        request.send();
     }
+
+    function favoriteModal(id,pk) {
+        var modal = document.getElementById(id)
+        modal.classList.toggle("far")
+        modal.classList.toggle("fas")
+        modal.classList.toggle("text-primary")
+
+
+        var request = new XMLHttpRequest()
+        var url = "/jurorsearch/api/human-star/" + pk
+        request.open("GET", url, true)
+        request.setRequestHeader("Content-Type", "application/json")
+        request.send();
+    }
+
+
 </script>
 {% endblock %}
 
