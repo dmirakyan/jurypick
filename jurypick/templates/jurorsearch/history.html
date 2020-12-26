@@ -1,168 +1,186 @@
 {% extends 'jurorsearch/base.html' %}
 {% block body_block %}
 
+
+
   <!-- Page Content -->
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 text-center">
         <h1 class="mt-5" style="padding-bottom:2em">History</h1>
+
+        <!-- <select class="form-control">
+            <option>all users</option>
+            <option>starred</option>
+        </select> -->
+
         {% if searches %}
-            {% for search in searches %}
-                <div class="card mb-3" id="modal-{{search.search_id}}">
-                    <div class="card-header">
-                            <p class="text-left mb-0 pb-0" style="text-align: center;">
-                                {{ search.result_clean_json.person_full_name }}
-                                {% if search.result_clean_json.age %}
-                                - {{ search.result_clean_json.age}}
-                                {% endif %}
-                            <!-- <button type="button" class="btn btn-outline-secondary pull-right"> -->
-                            <!-- <div class="button-group" -->
-                            <!-- <button type="button" class="btn btn-outline-secondary pull-right" aria-labels="close"> 
-                                <span class="btn-label">
-                                    <i class="fas fa-times"></i>
-                                </span>
-                            </button> -->
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-1">
+                <select class="form-control" id="usertype-select-box" onchange="toggleUserDisplay()">
+                    <option>all users</option>
+                    <option>starred</option>
+                </select>
+            </div>
 
-                            <button type="button" class="btn close pull-right" style="margin-top: .09em;" aria-labels="close" onclick="hideModal('modal-' + {{search.search_id}}, {{search.search_id}})">  
-                                <span class="btn-label">
-                                    <i class="fas fa-times"></i>
-                                </span>
-                            </button>
+            <div class="col-8">
+                {% for search in searches %}
+                    {% if search.starred == False %}
+                    <div class="card mb-3 " id="modal-{{search.search_id}}">
+                    {% endif %}
 
-                            <button type="button" class="btn close pull-right mx-3" aria-labels="close" onclick="favoriteModal('favorite-' + {{search.search_id}}, {{search.search_id}})" >  
-                                <span class="btn-label">
-                                   
-                                    {% if search.starred == False %}
-                                    <i id="favorite-{{search.search_id}}" class="far fa-star fa-sm" ></i>
+                    {% if search.starred == True %}
+                    <div class="card mb-3 star" id="modal-{{search.search_id}}">
+                    {% endif %}
+                    <!-- <div class="card mb-3 " id="modal-{{search.search_id}}"> -->
+                        <div class="card-header">
+                                <p class="text-left mb-0 pb-0" style="text-align: center;">
+                                    {{ search.result_clean_json.person_full_name }}
+                                    {% if search.result_clean_json.age %}
+                                    - {{ search.result_clean_json.age}}
                                     {% endif %}
+                                <button type="button" class="btn close pull-right" style="margin-top: .09em;" aria-labels="close" onclick="hideModal('modal-' + {{search.search_id}}, {{search.search_id}})">  
+                                    <span class="btn-label">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                </button>
 
-                                    {% if search.starred == True %}
-                                    <i id="favorite-{{search.search_id}}" class="fas fa-star fa-sm text-primary" ></i>
+                                <button type="button" role="button" data-toggle="collapse" href="#collapseExample"
+                                class="btn close pull-right mx-3" aria-labels="close" onclick="favoriteModal('favorite-' + {{search.search_id}}, 'modal-' + {{search.search_id}}, {{search.search_id}})" >  
+                                    <span class="btn-label">
+
+                                        {% if search.starred == False %}
+                                        <i id="favorite-{{search.search_id}}" class="far fa-star fa-sm" ></i>
+                                        {% endif %}
+
+                                        {% if search.starred == True %}
+                                        <i id="favorite-{{search.search_id}}" class="fas fa-star fa-sm text-primary" ></i>
+                                        {% endif %}
+                                    
+                                    </span>
+                                </button>
+
+                                <!-- <i class="far fa-star"></i> -->
+
+                                </p>
+                        </div>
+                        <div class="card-body" id="#test-id">
+                            <div class="row">
+                                {% if search.result_clean_json.job_any == 1 %}
+                                <div class="col-4">
+                                    <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>work</small></p>
+                                    <hr class="mt-0 mb-2"/>
+                                    <p class="mt-1 mb-1 text-left">
+                                    <b>Job:</b>
+                                    {% if search.result_clean_json.job_title %}
+                                        {{ search.result_clean_json.job_title }}
                                     {% endif %}
-                                
-                                </span>
-                            </button>
-
-                            <!-- <i class="far fa-star"></i> -->
-
-                            </p>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            {% if search.result_clean_json.job_any == 1 %}
-                            <div class="col-4">
-                                <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>work</small></p>
-                                <hr class="mt-0 mb-2"/>
-                                <p class="mt-1 mb-1 text-left">
-                                <b>Job:</b>
-                                {% if search.result_clean_json.job_title %}
-                                    {{ search.result_clean_json.job_title }}
+                                    {% if search.result_clean_json.job_company_name %}
+                                        at {{ search.result_clean_json.job_company_name }}
+                                    {% endif %}
+                                    {% endif %}
+                                    </p>
+                                    {% if search.result_clean_json.industry %}
+                                    <p class="mt-1 mb-1 text-left">
+                                    <b>Industry:</b> {{ search.result_clean_json.industry }}
+                                    </p>
+                                </div>
                                 {% endif %}
-                                {% if search.result_clean_json.job_company_name %}
-                                    at {{ search.result_clean_json.job_company_name }}
+                                {% if search.result_clean_json.school_name_1 %}
+                                    <div class="col-6">
+                                        <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>education</small></p>
+                                        <hr class="mt-0 mb-1"/>
+                                            <div class="row">
+                                                {% if search.result_clean_json.school_name_1 %}
+                                                    <div class="col">
+                                                            {% if search.result_clean_json.school_name_1 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>School: </b>{{ search.result_clean_json.school_name_1 }}</a></p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_start1 %}
+                                                            <p class="mt-1 mb-1 text-left"> {{ search.result_clean_json.school_start1 }} - {{ search.result_clean_json.school_stop1 }}</p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_degree1 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>Degree: </b> {{ search.result_clean_json.school_degree1 }}, {{ search.result_clean_json.school_major1 }}</p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_gpa_1 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>GPA: </b> {{ search.result_clean_json.school_gpa_1}}</p>
+                                                            {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                                {% if search.result_clean_json.school_name_2 %}
+                                                    <div class="col">
+                                                            {% if search.result_clean_json.school_name_2 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>School: </b>{{ search.result_clean_json.school_name_2 }}</a></p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_start2 %}
+                                                            <p class="mt-1 mb-1 text-left"> {{ search.result_clean_json.school_start2 }} - {{ search.result_clean_json.school_stop2 }}</p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_degree2 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>Degree: </b> {{ search.result_clean_json.school_degree2 }}, {{ search.result_clean_json.school_major2 }}</p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_gpa_2 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>GPA:</b> {{ search.result_clean_json.school_gpa_2}}</p>
+                                                            {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                                {% if search.result_clean_json.school_name_3 %}
+                                                    <div class="col">
+                                                            {% if search.result_clean_json.school_name_3 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>School: </b>{{ search.result_clean_json.school_name_3 }}</a></p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_start3 %}
+                                                            <p class="mt-1 mb-1 text-left"> {{ search.result_clean_json.school_start3 }} - {{ search.result_clean_json.school_stop3 }}</p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_degree3 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>Degree: </b> {{ search.result_clean_json.school_degree3 }}, {{ search.result_clean_json.school_major3 }}</p>
+                                                            {% endif %}
+                                                            {% if search.result_clean_json.school_gpa_3 %}
+                                                            <p class="mt-1 mb-1 text-left"><b>GPA: </b> {{ search.result_clean_json.school_gpa_3}}</p>
+                                                            {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                    </div>
                                 {% endif %}
-                                {% endif %}
-                                </p>
-                                {% if search.result_clean_json.industry %}
-                                <p class="mt-1 mb-1 text-left">
-                                <b>Industry:</b> {{ search.result_clean_json.industry }}
-                                </p>
-                            </div>
-                            {% endif %}
-                            {% if search.result_clean_json.school_name_1 %}
-                                <div class="col-6">
-                                    <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>education</small></p>
+                                {% if search.result_clean_json.social_media_counter > 0 %}
+                                <div class="col-2">
+                                    <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>social media</small></p>
                                     <hr class="mt-0 mb-1"/>
-                                        <div class="row">
-                                            {% if search.result_clean_json.school_name_1 %}
-                                                <div class="col">
-                                                        {% if search.result_clean_json.school_name_1 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>School: </b>{{ search.result_clean_json.school_name_1 }}</a></p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_start1 %}
-                                                        <p class="mt-1 mb-1 text-left"> {{ search.result_clean_json.school_start1 }} - {{ search.result_clean_json.school_stop1 }}</p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_degree1 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>Degree: </b> {{ search.result_clean_json.school_degree1 }}, {{ search.result_clean_json.school_major1 }}</p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_gpa_1 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>GPA: </b> {{ search.result_clean_json.school_gpa_1}}</p>
-                                                        {% endif %}
-                                                </div>
-                                            {% endif %}
-                                            {% if search.result_clean_json.school_name_2 %}
-                                                <div class="col">
-                                                        {% if search.result_clean_json.school_name_2 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>School: </b>{{ search.result_clean_json.school_name_2 }}</a></p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_start2 %}
-                                                        <p class="mt-1 mb-1 text-left"> {{ search.result_clean_json.school_start2 }} - {{ search.result_clean_json.school_stop2 }}</p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_degree2 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>Degree: </b> {{ search.result_clean_json.school_degree2 }}, {{ search.result_clean_json.school_major2 }}</p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_gpa_2 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>GPA:</b> {{ search.result_clean_json.school_gpa_2}}</p>
-                                                        {% endif %}
-                                                </div>
-                                            {% endif %}
-                                            {% if search.result_clean_json.school_name_3 %}
-                                                <div class="col">
-                                                        {% if search.result_clean_json.school_name_3 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>School: </b>{{ search.result_clean_json.school_name_3 }}</a></p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_start3 %}
-                                                        <p class="mt-1 mb-1 text-left"> {{ search.result_clean_json.school_start3 }} - {{ search.result_clean_json.school_stop3 }}</p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_degree3 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>Degree: </b> {{ search.result_clean_json.school_degree3 }}, {{ search.result_clean_json.school_major3 }}</p>
-                                                        {% endif %}
-                                                        {% if search.result_clean_json.school_gpa_3 %}
-                                                        <p class="mt-1 mb-1 text-left"><b>GPA: </b> {{ search.result_clean_json.school_gpa_3}}</p>
-                                                        {% endif %}
-                                                </div>
-                                            {% endif %}
-                                        </div>
+                                    <div class="text-left">
+                                        {% if search.result_clean_json.facebook_url %}
+                                        <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.facebook_url }}" role="button"><i class="fab fa-facebook-f"></i></a>
+                                        {% endif %}
+                                        {% if search.result_clean_json.linkedin_url %}
+                                        <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.linkedin_url }}" role="button"><i class="fab fa-linkedin-in"></i></a>
+                                        {% endif %}
+                                        {% if search.result_clean_json.twitter_url %}
+                                        <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.twitter_url }}" role="button"><i class="fab fa-twitter"></i></a>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                            {% endif %}
-                            {% if search.result_clean_json.social_media_counter > 0 %}
-                            <div class="col-2">
-                                <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>social media</small></p>
-                                <hr class="mt-0 mb-1"/>
-                                <div class="text-left">
-                                    {% if search.result_clean_json.facebook_url %}
-                                    <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.facebook_url }}" role="button"><i class="fab fa-facebook-f"></i></a>
-                                    {% endif %}
-                                    {% if search.result_clean_json.linkedin_url %}
-                                    <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.linkedin_url }}" role="button"><i class="fab fa-linkedin-in"></i></a>
-                                    {% endif %}
-                                    {% if search.result_clean_json.twitter_url %}
-                                    <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.twitter_url }}" role="button"><i class="fab fa-twitter"></i></a>
-                                    {% endif %}
-                                </div>
+                                {% endif %}
                             </div>
-                            {% endif %}
                         </div>
                     </div>
+
+
+                    {% endfor %}
+
                 </div>
-
+            </div>
+            <div class="col-2">
+            </div>
+        {% endif %}
             <!-- </br> -->
-
-            {% endfor %}
-        {% endif %}
         <!-- <p class="lead">search for people</p> -->
-        <p> search history shows up here </p>
-        {% if searches %}
-            <ul>
-            {% for search in searches %}
-                <li>{{ search.result_clean_json.person_full_name }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
       </div>
     </div>
   </div>
 {% endblock %}
+
+
+
 
 
 {% block js_block %}
@@ -170,27 +188,90 @@
 
     function hideModal(id,pk) {
         var modal = document.getElementById(id)
-        modal.classList.add("d-none")
+        slideUp(modal,300)
+
+        // modal.classList.add("d-none")
+
+        // slideUp(modal,400)
+
+
 
         var request = new XMLHttpRequest()
         var url = "/jurorsearch/api/human-hide/" + pk
         request.open("GET", url, true)
         request.setRequestHeader("Content-Type", "application/json")
+        
         request.send();
     }
 
-    function favoriteModal(id,pk) {
+    function favoriteModal(id,parent_id,pk) {
         var modal = document.getElementById(id)
         modal.classList.toggle("far")
         modal.classList.toggle("fas")
         modal.classList.toggle("text-primary")
 
+        var parent = document.getElementById(parent_id)
+        parent.classList.toggle("star")
+
+        if (parent.classList.contains("star") == false) {
+            parent.classList.add("d-none")
+        }
 
         var request = new XMLHttpRequest()
         var url = "/jurorsearch/api/human-star/" + pk
+
         request.open("GET", url, true)
         request.setRequestHeader("Content-Type", "application/json")
         request.send();
+    }
+
+    function toggleUserDisplay() {
+        userType = document.getElementById("usertype-select-box").value
+        // console.log(userType)
+        if (userType == "starred") {
+            cards = document.getElementsByClassName("card")
+            for (card of cards) {
+                if (card.classList.contains("star") == false) {
+                    card.classList.add("d-none")
+                }
+            } 
+        }
+
+        if (userType == "all users") {
+            cards = document.getElementsByClassName("card")
+            for (card of cards) {
+                card.classList.remove("d-none")
+            } 
+        }
+
+    }
+
+
+    let slideUp = (target, duration=500) => {
+        target.style.transitionProperty = 'height, margin, padding';
+        target.style.transitionDuration = duration + 'ms';
+        target.style.boxSizing = 'border-box';
+        target.style.height = target.offsetHeight + 'px';
+        target.offsetHeight;
+        target.style.overflow = 'hidden';
+        target.style.height = 0;
+        target.style.opacity = 0.4;
+        target.style.paddingTop = 1;
+        target.style.paddingBottom = 0;
+        target.style.marginTop = 0;
+        target.style.marginBottom = 0;
+        window.setTimeout(() => {
+            target.style.display = 'none';
+            target.style.removeProperty('height');
+            target.style.removeProperty('padding-top');
+            target.style.removeProperty('padding-bottom');
+            target.style.removeProperty('margin-top');
+            target.style.removeProperty('margin-bottom');
+            target.style.removeProperty('overflow');
+            target.style.removeProperty('transition-duration');
+            target.style.removeProperty('transition-property');
+            //alert("!");
+        }, duration);
     }
 
 

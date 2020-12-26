@@ -10,6 +10,9 @@ urlpatterns = [
     path('generate_query/', views.index, name='generate_query'),
     path('history.html', views.history, name='history'),
     path('jurorsearch/history.html', views.history, name='history'),
+    path('api/human-unhide-all/', views.unhideAllHumans, name='human-unhide-all'),
+    path('powertools.html', views.powertools, name='powertools'),
+
 
 #  APIs
     path('api',views.apiOverview, name="api-overview"),
@@ -19,8 +22,8 @@ urlpatterns = [
     # path('api/human-hide/<int:pk>/',views.humanHide, name="human-hide"),
 
     path('api/human-hide/<int:pk>/',views.hideHuman, name="human-hide"),
-    
     path('api/human-star/<int:pk>/',views.starHuman, name="human-star"),
+    path('api/human-unhide-all/', views.unhideAllHumans, name='human-unhide-all'),
 
 
 

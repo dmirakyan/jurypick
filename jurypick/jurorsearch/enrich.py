@@ -41,6 +41,13 @@ def get_list(a):
         response = None
     return response
 
+def set_title(a):
+    if a is None:
+        response = None
+    else:
+        response = a.title()
+    return response
+
 def check_if_any(list):
     if any([not bool(item) for item in list]):
         return 0
@@ -88,10 +95,10 @@ def parse_person(json_response):
             "twitter_url": person_details['twitter_url'],
             
             # Work details
-            "job_title": person_details['job_title'],
-            "job_company_name": person_details['job_company_name'],
+            "job_title": set_title(person_details['job_title']),
+            "job_company_name": set_title(person_details['job_company_name']),
             "job_company_url": person_details['job_company_website'],
-            "industry": person_details['industry'],
+            "industry": set_title(person_details['industry']),
         }
 
         if facebook_id:
@@ -100,28 +107,27 @@ def parse_person(json_response):
         person_clean["job_any"] = check_if_any([person_clean["job_title"],person_clean["job_company_name"]])
         for n in range(school_count):
             if n == 0:
-                person_clean["school_name_1"] = person_details['education'][0]['school']['name'].title()
-                person_clean["school_url_1"] = person_details['education'][0]['school']['website']
+                if person_details['education'][0]['school']:
+                    person_clean["school_name_1"] = set_title(person_details['education'][0]['school']['name'])
+                    person_clean["school_url_1"] = person_details['education'][0]['school']['website']
                 person_clean["school_gpa_1"] = person_details['education'][0]['gpa']
                 person_clean["school_start1"] = person_details['education'][0]['start_date']
                 person_clean["school_stop1"] = person_details['education'][0]['end_date']  
-                # person_clean["school_degree1"] = person_details['education'][0]['degrees'].title()
-                # person_clean["school_major1"] = person_details['education'][0]['majors'].title()
                 person_clean["school_degree1"] = get_list(person_details['education'][0]['degrees'])
                 person_clean["school_major1"] = get_list(person_details['education'][0]['majors'])
             if n == 1:
-                person_clean["school_name_2"] = person_details['education'][1]['school']['name'].title()
-                person_clean["school_url_2"] = person_details['education'][1]['school']['website']
+                if person_details['education'][1]['school']:
+                    person_clean["school_name_2"] = set_title(person_details['education'][1]['school']['name'])
+                    person_clean["school_url_2"] = person_details['education'][1]['school']['website']                
                 person_clean["school_gpa_2"] = person_details['education'][1]['gpa']
                 person_clean["school_start2"] = person_details['education'][1]['start_date']
                 person_clean["school_stop2"] = person_details['education'][1]['end_date'] 
-                # person_clean["school_degree2"] = person_details['education'][1]['degrees'].title()
-                # person_clean["school_major2"] = person_details['education'][1]['majors'].title()
                 person_clean["school_degree2"] = get_list(person_details['education'][1]['degrees'])
                 person_clean["school_major2"] = get_list(person_details['education'][1]['majors'])
             if n == 2:
-                person_clean["school_name_3"] = person_details['education'][2]['school']['name'].title()
-                person_clean["school_url_3"] = person_details['education'][2]['school']['website']
+                if person_details['education'][2]['school']:
+                    person_clean["school_name_3"] = set_title(person_details['education'][2]['school']['name'])
+                    person_clean["school_url_3"] = person_details['education'][2]['school']['website']
                 person_clean["school_gpa_3"] = person_details['education'][2]['gpa']
                 person_clean["school_start3"] = person_details['education'][2]['start_date']
                 person_clean["school_stop3"] = person_details['education'][2]['end_date'] 

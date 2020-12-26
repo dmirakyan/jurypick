@@ -79,12 +79,24 @@ def hideHuman(self, pk):
         human.hidden = True
         human.save()
         return HttpResponse('it worked?')
-
+        
+@login_required
+def unhideAllHumans(request):
+        if request.user.is_authenticated:
+            user=request.user
+            searches=Human.objects.filter(author=user.id).filter(response_status=200)
+            for human in searches:
+                human.hidden = False
+                human.save()
+            return redirect('/jurorsearch/history.html')
+        else:
+            return redirect(reverse('auth_login'))
+        return HttpResponse('it worked?')
 
 @login_required
 def starHuman(self, pk):
         search_id = pk
-        
+
         try:
             human = Human.objects.get(search_id=search_id)
         except human.DoesNotExist:
@@ -105,12 +117,19 @@ def history(request):
     if request.user.is_authenticated:
         user=request.user
         searches=Human.objects.filter(author=user.id).filter(response_status=200,hidden=False).order_by('-created_at')
-        # return render(request,"display.html",{'obj_list':search_list})
         return render(request,'jurorsearch/history.html',{'searches':searches})
-        # return render(request,reverse('auth_login'),{'searches':searches})
 
     else:
         # return render(request,'accounts:login')
+        return redirect(reverse('auth_login'))
+
+@login_required
+def powertools(request):
+    if request.user.is_authenticated:
+        user=request.user
+        searches=Human.objects.filter(author=user.id).filter(response_status=200,hidden=False).order_by('-created_at')
+        return render(request,'jurorsearch/powertools.html',{'searches':searches})
+    else:
         return redirect(reverse('auth_login'))
 
 
