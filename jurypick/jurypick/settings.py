@@ -59,8 +59,6 @@ INSTALLED_APPS = [
 
     # 'jurorsearch.apps.JurorsearchConfig',
 
-
-
     'rest_framework',
 ]
 
