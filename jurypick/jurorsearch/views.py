@@ -11,7 +11,7 @@ from .serializers import ResultSerializer
 
 from jurorsearch.forms import QueryForm
 from jurorsearch.enrich import call_api, parse_person, check_response_status
-from jurorsearch.models import Query, Human
+from jurorsearch.models import Query, Human, UserDetail
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -137,24 +137,36 @@ def index(request):
     if request.user.is_authenticated:
         # return HttpResponse('Logged in')
         form = QueryForm
+        userdetail = UserDetail.objects.get(user=request.user)
+        credits = userdetail.credits
         if request.method == 'POST':
             form = QueryForm(request.POST)
             if form.is_valid():
-                query = form.save(commit=False)
-                query.author = request.user
-                query.created_at = timezone.now()
-                query.save()
-
-                # Make the request?
-                json_response = call_api(form)
-                person_clean = parse_person(json_response)
-                json_raw = json.dumps(json_response)
-                json_parsed = json.dumps(person_clean)
-                response_status = check_response_status(json_response)
-                human = Human.objects.create(search_id = query, author=request.user, result=json_raw, result_clean=json_parsed, result_clean_json=person_clean, hidden=False,response_status=response_status,created_at=timezone.now())
-                human.save()
-                # return JsonResponse(person_clean)  
-                return render(request,'jurorsearch/index.html',{'form':form, 'person':person_clean, 'json_raw':json_raw,'json_parsed':json_parsed})
+                if credits > 0:
+                    userdetail.credits -= 1
+                    userdetail.save()
+                    query = form.save(commit=False)
+                    query.author = request.user
+                    query.created_at = timezone.now()
+                    query.save()
+                    # Make the request?
+                    json_response = call_api(form)
+                    person_clean = parse_person(json_response)
+                    json_raw = json.dumps(json_response)
+                    json_parsed = json.dumps(person_clean)
+                    response_status = check_response_status(json_response)
+                    human = Human.objects.create(search_id = query, author=request.user, result=json_raw, result_clean=json_parsed, result_clean_json=person_clean, hidden=False,response_status=response_status,created_at=timezone.now())
+                    human.save()
+                    # return JsonResponse(person_clean)  
+                    return render(request,'jurorsearch/index.html',{'form':form, 'person':person_clean, 'json_raw':json_raw,'json_parsed':json_parsed})
+                else:
+                    person = {
+                        "status" : 400,
+                        "error": {
+                            "message": 'no searches left',
+                        },
+                    }
+                    return render(request,'jurorsearch/index.html',{'form':form, 'person':person})
             else:
                 print(form.errors)
         return render(request,'jurorsearch/index.html',{'form':form})

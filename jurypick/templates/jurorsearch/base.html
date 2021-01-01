@@ -37,12 +37,17 @@
           </li>
           {% endif %}
 
-          {% if user.is_authenticated %}
+
           <li class="nav-item">
             <a class="nav-link" href="/jurorsearch/history.html">History</a>
           </li>
+          {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="/accounts/logout/">Logout</a>
+          </li>
+          <li class="divider-vertical"></li>
+          <li class="nav-item" >
+            <p style="color: #fff; opacity: 0.5; padding: 0.5rem 1rem; margin-bottom: 0;">Searches left: {{ user.userdetail.credits }}</p>
           </li>
           {% endif %}
 
