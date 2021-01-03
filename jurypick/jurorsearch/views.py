@@ -132,6 +132,8 @@ def powertools(request):
     else:
         return redirect(reverse('auth_login'))
 
+def landing(request):
+    return render(request,'jurorsearch/landing.html')
 
 def index(request):
     if request.user.is_authenticated:
@@ -163,7 +165,7 @@ def index(request):
                     person = {
                         "status" : 400,
                         "error": {
-                            "message": 'no searches left',
+                            "message": 'no searches left.',
                         },
                     }
                     return render(request,'jurorsearch/index.html',{'form':form, 'person':person})
