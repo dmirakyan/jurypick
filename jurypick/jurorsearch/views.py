@@ -5,11 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils import timezone
 from .serializers import ResultSerializer
+from django.core.mail import send_mail
+from django.conf import settings
 
 # import requests
 
 
-from jurorsearch.forms import QueryForm
+from jurorsearch.forms import QueryForm, ContactForm
 from jurorsearch.enrich import call_api, parse_person, check_response_status
 from jurorsearch.models import Query, Human, UserDetail
 
@@ -134,6 +136,36 @@ def powertools(request):
 
 def landing(request):
     return render(request,'jurorsearch/landing.html')
+
+def contact(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data['phone']
+            message = form.cleaned_data['message']
+            subject = 'New JuryFind message from' + name
+            payload = 'name: ' + name + '\n' + 'email: ' + email + '\n' + 'phone: ' + phone + '\n' + 'message: ' + message
+            # return HttpResponse('test')
+            print(payload)
+            # return HttpResponse('it worked?')
+        # # print(email)
+            send_mail(
+                subject,
+                payload,
+                'damirakyan@gmail.com',
+                ['damirakyan@gmail.com',],
+                fail_silently=False,
+                )
+            return render(request,'jurorsearch/landing.html')
+
+            # except BadHeaderError:
+            #         return HttpResponse('Invalid header found.')
+            
+    else:
+        form = ContactForm()
+        return render(request,'jurorsearch/contact.html',{'form':form})
 
 def index(request):
     if request.user.is_authenticated:

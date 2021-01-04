@@ -1,10 +1,10 @@
 
 {% load crispy_forms_tags %}
 
-<form id="query_form" method="post" action="/jurorsearch/index.html">
+<form id="query_form" method="post" action="/jurorsearch/index.html" >
     {% csrf_token %}
     <!-- <table>{{ form|crispy }}</table> -->
-    <div class="form-row">
+    <div class="form-row mb-4">
         <div class="form-group col-md-4 mb-0">
           {{ form.first_name|as_crispy_field }}
         </div>
@@ -40,5 +40,5 @@
           {{ form.birth_date|as_crispy_field }}
         </div>
       </div>
-    <input type="submit" class="btn btn-primary" name="submit" value="Search"/>
+    <input type="submit" class="btn btn-primary mb-5" name="submit" value="Search"/>
 </form>

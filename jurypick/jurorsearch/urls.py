@@ -13,6 +13,8 @@ urlpatterns = [
     path('api/human-unhide-all/', views.unhideAllHumans, name='human-unhide-all'),
     path('powertools.html', views.powertools, name='powertools'),
     path('landing.html', views.landing, name='landing'),
+    path('contact.html', views.contact, name='contact'),
+
 
 
 

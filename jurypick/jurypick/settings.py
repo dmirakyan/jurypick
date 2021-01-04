@@ -147,3 +147,15 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL='damirakyan@gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+# EMAIL_PORT = 465
+# EMAIL_PORT = 25587
+EMAIL_PORT = 587
+

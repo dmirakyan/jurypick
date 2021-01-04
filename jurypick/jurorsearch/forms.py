@@ -48,4 +48,15 @@ class QueryForm(forms.ModelForm):
         model = Query
         exclude = ('search_id','author','created_at')
     
-   
+class ContactForm(forms.Form):
+    name = forms.CharField(
+            required=True,
+            # label='name'
+            # widget=forms.TextInput(attrs={'placeholder': 'required'})
+            )
+    email = forms.EmailField(
+            required=True,
+            # widget=forms.TextInput(attrs={'placeholder': 'required'})
+    )
+    phone = forms.CharField(required=False)
+    message = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), required=False)
