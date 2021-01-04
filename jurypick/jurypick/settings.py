@@ -26,8 +26,8 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = '9(u*eca(&(41!bw6vti*21(5#q815dy#gvpjfvby+s&m71y+zt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['www.juryfind.com',
