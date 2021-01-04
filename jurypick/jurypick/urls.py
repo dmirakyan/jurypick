@@ -21,10 +21,9 @@ from django.urls import path, include
 from jurorsearch import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.landing, name='landing'),
     path('jurorsearch/',include('jurorsearch.urls')),
     path('api/', include('jurorsearch.urls')),
-    
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

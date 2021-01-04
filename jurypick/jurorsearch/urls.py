@@ -5,7 +5,8 @@ app_name = 'jurorsearch'
 
 urlpatterns = [
     path('index.html', views.index, name='index'),
-    path('', views.index, name='index'),
+    # path('index.html', views.landing, name='landing'),
+    path('', views.landing, name='landing'),
     path('jurorsearch/index.html', views.index, name='index'),
     path('generate_query/', views.index, name='generate_query'),
     path('history.html', views.history, name='history'),
