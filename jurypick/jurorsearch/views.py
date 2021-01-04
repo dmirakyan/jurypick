@@ -145,7 +145,7 @@ def contact(request):
             email = form.cleaned_data['email']
             phone = form.cleaned_data['phone']
             message = form.cleaned_data['message']
-            subject = 'New JuryFind message from' + name
+            subject = 'New JuryFind message from ' + name
             payload = 'name: ' + name + '\n' + 'email: ' + email + '\n' + 'phone: ' + phone + '\n' + 'message: ' + message
             # return HttpResponse('test')
             print(payload)
