@@ -177,8 +177,7 @@ def index(request):
             form = QueryForm(request.POST)
             if form.is_valid():
                 if credits > 0:
-                    userdetail.credits -= 1
-                    userdetail.save()
+                    
                     query = form.save(commit=False)
                     query.author = request.user
                     query.created_at = timezone.now()
@@ -191,6 +190,14 @@ def index(request):
                     response_status = check_response_status(json_response)
                     human = Human.objects.create(search_id = query, author=request.user, result=json_raw, result_clean=json_parsed, result_clean_json=person_clean, hidden=False,response_status=response_status,created_at=timezone.now())
                     human.save()
+
+                    # Decrease credits if a successful response was returned
+                    if response_status == 200:
+                        userdetail.credits -= 1
+                        userdetail.save()
+                        
+
+                    
                     # return JsonResponse(person_clean)  
                     return render(request,'jurorsearch/index.html',{'form':form, 'person':person_clean, 'json_raw':json_raw,'json_parsed':json_parsed})
                 else:
