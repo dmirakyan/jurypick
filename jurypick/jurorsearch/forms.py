@@ -34,6 +34,7 @@ class QueryForm(forms.ModelForm):
         choices=(('', 'state'),)+STATE_CHOICES)
     zip_code = forms.CharField(
         max_length=128,
+        label='Zip',
         required=False,)
     email = forms.CharField(
         max_length=128, 

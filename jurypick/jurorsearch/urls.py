@@ -29,6 +29,9 @@ urlpatterns = [
     path('api/human-hide/<int:pk>/',views.hideHuman, name="human-hide"),
     path('api/human-star/<int:pk>/',views.starHuman, name="human-star"),
     path('api/human-unhide-all/', views.unhideAllHumans, name='human-unhide-all'),
+    path('api/toggle-user-favorites-true/', views.toggleUserFavoritesTrue, name='toggle-user-favorites-true'),
+    path('api/toggle-user-favorites-false/', views.toggleUserFavoritesFalse, name='toggle-user-favorites-false'),
+
 
 
 

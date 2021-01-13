@@ -4,6 +4,15 @@
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-landing-page/blob/master/LICENSE)
  */
 
+.row.no-gutters {
+  background-color: #f9f9f9;
+}
+
+
+.showcase-img {
+  margin: 2rem 0;
+}
+
 body {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

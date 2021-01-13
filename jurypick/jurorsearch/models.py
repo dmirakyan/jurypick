@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class UserDetail(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     credits = models.IntegerField(default=10)
+    toggle_view_favorites = models.BooleanField(default=False)
     def __str__(self):  
         return str(self.user)
 

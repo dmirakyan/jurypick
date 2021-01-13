@@ -81,6 +81,22 @@ def hideHuman(self, pk):
         human.hidden = True
         human.save()
         return HttpResponse('it worked?')
+
+@login_required
+def toggleUserFavoritesTrue(request):
+    if  request.user.is_authenticated:
+        userdetail = UserDetail.objects.get(user=request.user)
+        userdetail.toggle_view_favorites = True
+        userdetail.save()
+        return HttpResponse('it worked?')
+
+@login_required
+def toggleUserFavoritesFalse(request):
+    if  request.user.is_authenticated:
+        userdetail = UserDetail.objects.get(user=request.user)
+        userdetail.toggle_view_favorites = False
+        userdetail.save()
+        return HttpResponse('it worked?')
         
 @login_required
 def unhideAllHumans(request):
@@ -94,6 +110,7 @@ def unhideAllHumans(request):
         else:
             return redirect(reverse('auth_login'))
         return HttpResponse('it worked?')
+
 
 @login_required
 def starHuman(self, pk):

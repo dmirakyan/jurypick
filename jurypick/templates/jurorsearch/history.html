@@ -7,7 +7,8 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h1 class="mt-5" style="padding-bottom:2em">History</h1>
+        
+        <h1 class="mt-5" style="padding-bottom: 2rem;">History</h1>
 
         <!-- <select class="form-control">
             <option>all users</option>
@@ -18,24 +19,36 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-1">
-                <select class="form-control" id="usertype-select-box" onchange="toggleUserDisplay()">
-                    <option>all users</option>
-                    <option>starred</option>
-                </select>
             </div>
 
             <div class="col-8">
+                <div class="text-right mb-3">
+                    <div class="btn-group btn-group-toggle" style="background-color:white;" data-toggle="buttons">
+                        <label class="btn btn-outline-secondary history-filter float-right">
+                        <input type="radio" name="options" id="user-toggle-all" onclick="toggleUserFavoritesFalse()" 
+                            {% if  user.userdetail.toggle_view_favorites == False %}  checked
+                            {% endif %} 
+                            > all users
+                        </label>
+                        <label class="btn btn-outline-secondary history-filter float-right">
+                        <input type="radio" name="options" id="user-toggle-favorites" onclick="toggleUserFavoritesTrue()" 
+                            {% if  user.userdetail.toggle_view_favorites == True %}  checked
+                            {% endif %} 
+                            > favorites
+                        </label>
+                    </div>
+                </div>
+                
                 {% for search in searches %}
                     {% if search.starred == False %}
                     <div class="card mb-3 " id="modal-{{search.search_id}}">
                     {% endif %}
-
                     {% if search.starred == True %}
                     <div class="card mb-3 star" id="modal-{{search.search_id}}">
                     {% endif %}
                     <!-- <div class="card mb-3 " id="modal-{{search.search_id}}"> -->
                         <div class="card-header">
-                                <p class="text-left mb-0 pb-0" style="text-align: center;">
+                                <p class="text-left mb-0 pb-0" style="text-align: center; font-weight:600">
                                     {{ search.result_clean_json.person_full_name }}
                                     {% if search.result_clean_json.age %}
                                     - {{ search.result_clean_json.age}}
@@ -49,20 +62,14 @@
                                 <button type="button" role="button" data-toggle="collapse" href="#collapseExample"
                                 class="btn close pull-right mx-3" aria-labels="close" onclick="favoriteModal('favorite-' + {{search.search_id}}, 'modal-' + {{search.search_id}}, {{search.search_id}})" >  
                                     <span class="btn-label">
-
                                         {% if search.starred == False %}
                                         <i id="favorite-{{search.search_id}}" class="far fa-star fa-sm" ></i>
                                         {% endif %}
-
                                         {% if search.starred == True %}
                                         <i id="favorite-{{search.search_id}}" class="fas fa-star fa-sm text-primary" ></i>
                                         {% endif %}
-                                    
                                     </span>
                                 </button>
-
-                                <!-- <i class="far fa-star"></i> -->
-
                                 </p>
                         </div>
                         <div class="card-body" id="#test-id">
@@ -160,17 +167,21 @@
                                     </div>
                                 </div>
                                 {% endif %}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
                     {% endfor %}
-
+                </div>
+                </div>
+                <div class="col-1">
+ 
+                </div>
+                <div class="col-1">
                 </div>
             </div>
-            <div class="col-2">
-            </div>
+
         {% endif %}
             <!-- </br> -->
         <!-- <p class="lead">search for people</p> -->
@@ -178,29 +189,35 @@
     </div>
   </div>
 {% endblock %}
-
-
-
-
-
 {% block js_block %}
 <script>
+
+
+    // $('#usertype-select-box').bootstrapSwitch('state');
+    // $('#usertype-select-box').on('switchChange.bootstrapSwitch',function () {
+    // var check = $('.bootstrap-switch-on');
+    // if (check.length > 0) {
+    //     console.log('ON')
+    // } else {
+    //     console.log('OFF')
+    // }
+    // });
+    
+
+
+    // $("#usertype-select-box").bootstrapSwitch();
+    // onSwitchChange: function(e, state) { 
+    //     alert(state);
+    // }
+    // });
 
     function hideModal(id,pk) {
         var modal = document.getElementById(id)
         slideUp(modal,300)
-
-        // modal.classList.add("d-none")
-
-        // slideUp(modal,400)
-
-
-
         var request = new XMLHttpRequest()
         var url = "/jurorsearch/api/human-hide/" + pk
         request.open("GET", url, true)
         request.setRequestHeader("Content-Type", "application/json")
-        
         request.send();
     }
 
@@ -213,9 +230,22 @@
         var parent = document.getElementById(parent_id)
         parent.classList.toggle("star")
 
-        if (parent.classList.contains("star") == false) {
-            parent.classList.add("d-none")
-        }
+        // if (parent.classList.contains("star") == false) {
+        //     parent.classList.add("d-none")
+        // }
+
+        togglefavorite = "{{ user.userdetail.toggle_view_favorites }}"
+        console.log(togglefavorite)
+
+        // if (togglefavorite=="True") {
+        //     if (parent.classList.contains("star") == false) {
+        //         parent.classList.add("d-none")
+        //     }
+        // }
+
+        // if (togglefavorite==False) {
+        //     console.log("false")
+        // }
 
         var request = new XMLHttpRequest()
         var url = "/jurorsearch/api/human-star/" + pk
@@ -243,8 +273,40 @@
                 card.classList.remove("d-none")
             } 
         }
-
     }
+
+    function toggleUserFavoritesTrue() {
+        // hide not starred elements
+        cards = document.getElementsByClassName("card")
+            for (card of cards) {
+                if (card.classList.contains("star") == false) {
+                    card.classList.add("d-none")
+                }
+            } 
+        // Set user preferences to favorites only
+        var request = new XMLHttpRequest()
+        var url = "/jurorsearch/api/toggle-user-favorites-true/"
+        request.open("GET", url, true)
+        request.setRequestHeader("Content-Type", "application/json")
+        request.send();
+    }
+
+    function toggleUserFavoritesFalse() {
+        // show non-starred users
+        cards = document.getElementsByClassName("card")
+            for (card of cards) {
+                card.classList.remove("d-none")
+            } 
+
+        // Set user preferences to favorites only
+        console.log("testmessage")
+        var request = new XMLHttpRequest()
+        var url = "/jurorsearch/api/toggle-user-favorites-false/"
+        request.open("GET", url, true)
+        request.setRequestHeader("Content-Type", "application/json")
+        request.send();
+    }
+
 
 
     let slideUp = (target, duration=500) => {
@@ -272,8 +334,8 @@
             target.style.removeProperty('transition-property');
             //alert("!");
         }, duration);
-    }
-
+        }
+    
 
 </script>
 {% endblock %}

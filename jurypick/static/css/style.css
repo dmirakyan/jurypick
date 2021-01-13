@@ -1,5 +1,32 @@
 body {
-    background-color: #f9f9f9;
+    background-color: #F9F9F9;
+}
+
+.form-control  {
+    background-color: #F9F9F9;
+}
+
+
+.form-group {
+    text-align: left !important;
+}
+
+label {
+    margin-bottom: .25rem;
+    text-transform: uppercase;
+    /* font-weight: lighter; */
+    font-size: small;
+}
+
+.history-filter {
+    text-transform: none;
+}
+
+.h1, h1 {
+    padding-bottom: 1rem;
+    color: #153b52;
+    font-weight: 700;
+    /* font-weight: 600; */
 }
 
 .navbar .divider-vertical {
@@ -7,10 +34,10 @@ body {
     margin: floor(@navbar-margin-bottom / 2) 9px;
     margin-left: 0.5em;
     margin-right: 0.5em;
-    /* margin: 10px; */
-    /* height: 20px */
-    /* border-left: 1px solid #f2f2f2; */
     border-right: 1px solid #ffffff;
     color: #FFFFFF;
     opacity: 0.5;
 }
+
+
+
