@@ -22,6 +22,7 @@ from jurorsearch import views
 
 urlpatterns = [
     path('', views.landing, name='landing'),
+    path('accounts/custom-login/', views.custom_login, name='custom-login'),
     path('jurorsearch/',include('jurorsearch.urls')),
     path('api/', include('jurorsearch.urls')),
     path('admin/', admin.site.urls),

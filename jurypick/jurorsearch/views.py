@@ -22,11 +22,16 @@ from rest_framework.response import Response
 import json
 
 
+
 # Create your views here.
 
-# def index(request):
-#     # return HttpResponse('Test page')
-#     return render(request,'jurorsearch/index.html')
+def custom_login(request, **kwargs):
+    if request.user.is_authenticated:
+        return redirect('/jurorsearch/index.html')
+    else:
+        return redirect('/accounts/login/')
+
+
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = {
