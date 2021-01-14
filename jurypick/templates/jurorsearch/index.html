@@ -4,41 +4,43 @@
 {% load static %}
 
   <!-- Page Content -->
-  <div class="container" >
+  <div class="container-fluid" >
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <h1 class="mt-5" style="padding-bottom:1em; font-weight:600">Find People</h1>
-        <!-- <p class="lead">search for people</p> -->
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col">
-              <div class ="card card-body">
-                <h3 class ="card-title" style="padding-bottom:.5em">Search</h3>
-                {% include "jurorsearch/search-form.html" %}
-                <div class="text-left font-weight-light mt-4">
-                  <p class="text-left font-weight-light text-uppercase mb-0 mt-4">Instructions</p>
-                  <hr class="mt-0 mb-2"/>
-                  <p class="text-left  mb-0 mt-1">For best results fill out as many details as possible. At a minimum, please provide <b> one of </b> the following:</p>
-                  <ul>
-                    <li>email</li>
-                    <li>phone number</li>
-                    <li>name and zip code</li>
-                    <li>name and address or county</li>
-                  </ul>
+      <div class="col-lg-1"></div>
+        <div class="col-lg-10 text-center">
+          <h1 class="mt-5" style="padding-bottom:1em; font-weight:600">Find People</h1>
+          <!-- <p class="lead">search for people</p> -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col">
+                <div class ="card card-body">
+                  <h3 class ="card-title" style="padding-bottom:.5em">Search</h3>
+                  {% include "jurorsearch/search-form.html" %}
+                  <div class="text-left font-weight-light mt-4">
+                    <p class="text-left font-weight-light text-uppercase mb-0 mt-4">Instructions</p>
+                    <hr class="mt-0 mb-2"/>
+                    <p class="text-left  mb-0 mt-1">For best results fill out as many details as possible. At a minimum, please provide <b> one of </b> the following:</p>
+                    <ul>
+                      <li>email</li>
+                      <li>phone number</li>
+                      <li>name and zip code</li>
+                      <li>name and address or county</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-            {% if person %}
-            <div class="col">
-              <div class ="card card-body">
-                <h3 class ="card-title" style="padding-bottom:.5em"> Results</h3>
-                {% include "jurorsearch/person_data.html" %}
+              {% if person %}
+              <div class="col">
+                <div class ="card card-body">
+                  <h3 class ="card-title" style="padding-bottom:.5em"> Results</h3>
+                  {% include "jurorsearch/person_data.html" %}
+                </div>
               </div>
+              {% endif %}
             </div>
-            {% endif %}
           </div>
         </div>
-      </div>
+      <div class="col-lg-1"></div>
     </div>
   </div>
 
