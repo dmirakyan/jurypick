@@ -86,12 +86,12 @@
                                     {% if search.result_clean_json.job_company_name %}
                                         at {{ search.result_clean_json.job_company_name }}
                                     {% endif %}
-                                    {% endif %}
                                     </p>
                                     {% if search.result_clean_json.industry %}
                                     <p class="mt-1 mb-1 text-left">
                                     <b>Industry:</b> {{ search.result_clean_json.industry }}
                                     </p>
+                                    {% endif %}
                                 </div>
                                 {% endif %}
                                 {% if search.result_clean_json.school_name_1 %}
