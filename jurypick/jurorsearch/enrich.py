@@ -81,6 +81,7 @@ def parse_person(json_response):
         person_clean = {
             "status" : status,
             "record_id": person_details['id'],
+
         
             "social_media_counter": social_media_counter,
             
@@ -100,7 +101,60 @@ def parse_person(json_response):
             "job_company_url": person_details['job_company_website'],
             "industry": set_title(person_details['industry']),
         }
+        
+        ## Parse phone numbers
+        phone_list = []
+        
+        # Response stores phone numbers in 2 sections. Function below extracts the main phone #.
+        if 'mobile_phone' in person_details:
+            if str(person_details['mobile_phone']) != 'null':
+                phone_list.append(person_details['mobile_phone'])
+            
+        # Add phone numbers from the long list
+        if 'phone_numbers' in person_details:
+            phone_count = len(person_details['phone_numbers'])
+            if phone_count > 0:
+                for i in range(phone_count):
+                    phone_list.append(person_details['phone_numbers'][i])
+                
+        # Deduplicates phone list
+        phone_list = list(set(phone_list))
+        # Removes weird values
+        if 'None' in phone_list: phone_list.remove('None')
+        if '' in phone_list: phone_list.remove('')
+        phone_list = list(filter(None, phone_list))
+        person_clean['phones'] = phone_list
+        
+        ## Parse emails
+        email_list = []
+        if 'work_email' in person_details:
+            if str(person_details['work_email']) != 'None':
+                email_list.append(person_details['work_email'])
+        if 'personal_emails' in person_details:
+            email_count_personal = len(person_details['personal_emails'])
+            if email_count_personal > 0:
+                for i in range(email_count_personal):
+                    email_list.append(person_details['personal_emails'][i])
+        
+        if 'emails' in person_details:
+            email_count_general = len(person_details['emails'])
+            if email_count_general > 0:
+                for i in range(email_count_general):
+                    email_list.append(person_details['emails'][i]['address'])
+        
+        # Deduplicates email list
+        email_list = list(set(email_list))
+        # Removes weird values
+        if 'None' in email_list: email_list.remove('None')
+        if '' in email_list: email_list.remove('')
+        email_list = list(filter(None, email_list))
+        person_clean['emails'] = email_list
+        
+        # Contact info length field used to generate phone contact details section
+        # if contact details are available
+        person_clean['contact_info_length'] = len(phone_list+email_list)
 
+        
         if facebook_id:
             person_clean["fb_profile"] = f"https://graph.facebook.com/v8.0/{facebook_id}/picture?redirect=true&access_token={fb_key}"
         
@@ -133,7 +187,7 @@ def parse_person(json_response):
                 person_clean["school_stop3"] = person_details['education'][2]['end_date'] 
                 person_clean["school_degree3"] = get_list(person_details['education'][2]['degrees'])
                 person_clean["school_major3"] = get_list(person_details['education'][2]['majors'])
-    
+                
     return person_clean
 
 def check_response_status(json_response):

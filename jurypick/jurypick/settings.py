@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'jurorsearch',
     'localflavor',
     'crispy_forms',
-    'registration',
+    'django_registration',
 
     # 'jurorsearch.apps.JurorsearchConfig',
 

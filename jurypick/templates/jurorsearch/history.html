@@ -18,10 +18,9 @@
         {% if searches %}
         <div class="row">
             <div class="col-1"></div>
-            <div class="col-1">
-            </div>
+            <!-- <div class="col-1"></div> -->
 
-            <div class="col-8">
+            <div class="col-10">
                 <div class="text-right mb-3">
                     <div class="btn-group btn-group-toggle" style="background-color:white;" data-toggle="buttons">
                         <label class="btn btn-outline-secondary history-filter float-right">
@@ -75,7 +74,7 @@
                         <div class="card-body" id="#test-id">
                             <div class="row">
                                 {% if search.result_clean_json.job_any == 1 %}
-                                <div class="col-4">
+                                <div class="col-3">
                                     <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>work</small></p>
                                     <hr class="mt-0 mb-2"/>
                                     <p class="mt-1 mb-1 text-left">
@@ -91,6 +90,25 @@
                                     <p class="mt-1 mb-1 text-left">
                                     <b>Industry:</b> {{ search.result_clean_json.industry }}
                                     </p>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% if search.result_clean_json.contact_info_length > 0 %}
+                                <div class="col-2">
+                                    <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>contact</small></p>
+                                    <hr class="mt-0 mb-2"/>
+                                    <p class="mt-1 mb-1 text-left">
+                                    {% if search.result_clean_json.phones %}
+                                        <b>Phone:</b>
+                                        {% for phone in search.result_clean_json.phones %}
+                                            {{ phone }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if search.result_clean_json.emails %}
+                                        <b>Email:</b>
+                                        {% for email in search.result_clean_json.emails %}
+                                            {{ email }}
+                                        {% endfor %}
                                     {% endif %}
                                 </div>
                                 {% endif %}
@@ -151,18 +169,18 @@
                                     </div>
                                 {% endif %}
                                 {% if search.result_clean_json.social_media_counter > 0 %}
-                                <div class="col-2">
-                                    <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>social media</small></p>
+                                <div class="col-1">
+                                    <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>social</small></p>
                                     <hr class="mt-0 mb-1"/>
                                     <div class="text-left">
                                         {% if search.result_clean_json.facebook_url %}
-                                        <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.facebook_url }}" role="button"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-primary " style="width:75%; margin-bottom:0.25rem;" href="https://www.{{ search.result_clean_json.facebook_url }}" role="button"><i class="fab fa-facebook-f"></i></a>
                                         {% endif %}
                                         {% if search.result_clean_json.linkedin_url %}
-                                        <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.linkedin_url }}" role="button"><i class="fab fa-linkedin-in"></i></a>
+                                        <a class="btn btn-primary" style="width:75%; margin-bottom:0.25rem;" href="https://www.{{ search.result_clean_json.linkedin_url }}" role="button"><i class="fab fa-linkedin-in"></i></a>
                                         {% endif %}
                                         {% if search.result_clean_json.twitter_url %}
-                                        <a class="btn btn-primary" href="https://www.{{ search.result_clean_json.twitter_url }}" role="button"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-primary" style="width:75%; margin-bottom:0.25rem;" href="https://www.{{ search.result_clean_json.twitter_url }}" role="button"><i class="fab fa-twitter"></i></a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -175,11 +193,8 @@
                     {% endfor %}
                 </div>
                 </div>
-                <div class="col-1">
- 
-                </div>
-                <div class="col-1">
-                </div>
+                <div class="col-1"></div>
+                <!-- <div class="col-1"></div> -->
             </div>
 
         {% endif %}
