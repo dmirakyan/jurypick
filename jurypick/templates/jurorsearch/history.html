@@ -74,7 +74,7 @@
                         <div class="card-body" id="#test-id">
                             <div class="row">
                                 {% if search.result_clean_json.job_any == 1 %}
-                                <div class="col-3">
+                                <div class="col-2">
                                     <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>work</small></p>
                                     <hr class="mt-0 mb-2"/>
                                     <p class="mt-1 mb-1 text-left">
@@ -94,18 +94,19 @@
                                 </div>
                                 {% endif %}
                                 {% if search.result_clean_json.contact_info_length > 0 %}
-                                <div class="col-2">
+                                <div class="col-3">
                                     <p class="text-left font-weight-light text-uppercase mb-0 mt-1"><small>contact</small></p>
                                     <hr class="mt-0 mb-2"/>
                                     <p class="mt-1 mb-1 text-left">
                                     {% if search.result_clean_json.phones %}
-                                        <b>Phone:</b>
+                                        <b>Phones:</b>
                                         {% for phone in search.result_clean_json.phones %}
                                             {{ phone }}
                                         {% endfor %}
+                                    </br>
                                     {% endif %}
                                     {% if search.result_clean_json.emails %}
-                                        <b>Email:</b>
+                                        <b>Emails:</b>
                                         {% for email in search.result_clean_json.emails %}
                                             {{ email }}
                                         {% endfor %}

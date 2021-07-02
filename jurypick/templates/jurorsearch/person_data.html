@@ -41,28 +41,51 @@
           - {{ person.age}}
         {% endif %}
       </h6> 
+      <div class="row">
       {% if person.job_any == 1 %}
-      <p class="text-left font-weight-light text-uppercase mb-0 mt-3"><small>work</small></p>
-      <hr class="mt-0 mb-2"/>
-      <p class="mt-1 mb-1 text-left">
-      
-        <b>Job:</b>
-        {% if person.job_title %}
-          {{ person.job_title }}
-        {% endif %}
-        {% if person.job_company_name %}
-          at {{ person.job_company_name }}
-        {% endif %}
-      <!-- <b>Job:</b> job_title at <a href="opendoor.com"> job_company_name </a> -->
-      </p>
-        {% if person.industry %}
-        <p class="mt-1 mb-1 text-left">
-          <b>Industry:</b> {{ person.industry }}
-        </p>
-        {% endif %}
+        <div class="col">
+          <p class="text-left font-weight-light text-uppercase mb-0 mt-3"><small>work</small></p>
+          <hr class="mt-0 mb-2"/>
+            <p class="mt-1 mb-1 text-left">
+              <b>Job:</b>
+                {% if person.job_title %}
+                  {{ person.job_title }}
+                {% endif %}
+                {% if person.job_company_name %}
+                  at {{ person.job_company_name }}
+                {% endif %}
+          <!-- <b>Job:</b> job_title at <a href="opendoor.com"> job_company_name </a> -->
+            </p>
+            {% if person.industry %}
+              <p class="mt-1 mb-1 text-left">
+                <b>Industry:</b> {{ person.industry }}
+              </p>
+            {% endif %}
+        </div>
       {% endif %}
+      {% if person.contact_info_length > 0 %}
+      <div class="col">
+        <p class="text-left font-weight-light text-uppercase mb-0 mt-3"><small>contact</small></p>
+        <hr class="mt-0 mb-2"/>
+        <p class="mt-1 mb-1 text-left">
+          {% if person.phones%}
+            <b>Phones:</b>
+            {% for phone in person.phones %}
+              {{ phone }}
+            {% endfor %}
+            </br>
+          {% endif %}
+          {% if person.emails%}
+          <b>Emails:</b>
+            {% for email in person.emails %}
+              {{ email }}
+            {% endfor %}
+          {% endif %}
+        </p>
+      {% endif %}
+      </div>
     </div>
-</div>
+
 <div class="row>">
     <p class="text-left font-weight-light text-uppercase mb-0 mt-4"><small>education</small></p>
     <hr class="mt-0 mb-2"/>
